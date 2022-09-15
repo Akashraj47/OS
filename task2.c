@@ -1,26 +1,46 @@
-#include<stdio.h>
-#include<unistd.h>
-int main(){
-	int arr[10] = {1,2,3,4,5,6,7,8,9,10};
-	int p;
-	int sum_odd = 0;
-	int sum_even = 0;
-	p = fork();
-	if(p == 0){
-		for(int i = 0;i<10;i++){
-			if(arr[i] & 1){
-				sum_odd += arr[i];
-			}
-		}
-		printf("The sum of odds are :- %d\n",sum_odd);
-	}
-	else{
-		for(int i = 0;i<10;i++){
-			if((arr[i] & 1) == 0){
-				sum_even += arr[i];
-			}
-		}
-		printf("The sum of even are :- %d\n",sum_even);
-	}
-	return 0;
+#include<stdio.h> #include<unistd.h> int main()
+{
+
+int n;
+printf("Enter the size of the array\n"); scanf("%d",&n);
+int arr[n];
+printf("Enter the elements of the array\n"); for(int i=0;i<n;i++)
+{
+
+scanf("%d",&arr[i]);
+}
+
+int x = fork();
+int even=0,odd=0; if(x > 0)
+{
+
+for(int i = 0;i<n;i++)
+ 
+{
+if(arr[i]%2 == 0)
+{
+
+even = even+arr[i];
+}
+}
+
+printf("Child process id is:%d\n",getpid()); printf("Sum of even number is:%d\n",even);
+}
+
+else
+{
+
+for(int i=0;i<n;i++)
+{
+if(arr[i]%2 != 0)
+{
+
+odd = odd+arr[i];
+}
+}
+
+printf("Parent process id is:%d\n",getpid()); printf("Sum of odd numbers is :%d\n",odd);
+}
+
+return 0;
 }
